@@ -1,0 +1,6 @@
+@FindMe.API_HostAddress = http://localhost:5109
+
+GET {{FindMe.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -3,22 +3,19 @@
   "FailedCreateAccount": ".فشل اضافة مستخدم",
   "UserNotFound": ".فشل ايجاد المستخدم",
   "InvalidLogin": ".خطا فى عملية تسجيل الدخول",
-  "SupplierExist": ".المورد موجود مسبقا",
   "InvalidRequest": ".طلب غير صحيح",
-  "ProductExist": ".المنتج موجود مسبقا",
-  "NoSupplierFound": "لم يتم العثور على مورد",
-  "ItemNotFound": ".فشل ايجاد العنصر",
-  "NoInvoiceFound": ".لم يتم العثور على الفاتورة",
   "Unauthorize": ".لا تملك صلاحية",
-  "UserNameExist": "اسم المستخدم موجود مسبقا",
   "PhoneNumberExist": "رقم الهاتف موجود مسبقا",
   "RoleNotExist": "لا يوجد دور بهذا الاسم",
   "EmailExist": "الايميل مستخدم من قبل",
-  "EmployeeIdExist": ".الرقم التعريفى موجود مسبقا",
-  "PriceNotBeZero": ".السعر يجب ان يكون اعلى من صفر",
-  "RatingLimitException": ".يجب ان يكون التقييم ما بين 1 الى 5",
   "GanderException": ".النوع يجب ان يكون ذكر او انثى فقط",
-  "EmailIsNotValidExpression": ".هذا النص لا يطابق شكل الايميل",
-  "ItemsNotFound": ".بعض المنتجات غير موجودة او ربما لا يتوفر كمية منها",
-  "SupplierNotFound": ".لم يتم العثور على المورد"
+  "EmailIsNotValidExpression": "الرجاء ادخال بريد إلكترونى صحيح",
+  "InvaildPhoneNumber": "الرجاء إدخال رقم هاتف صحيح",
+  "AccountCreatedSuccessfully": "تم إنشاء الحساب بنجاح",
+  "LoginSuccessfully": "تم تسجيل الدخول بنجاح",
+  "LogoutSuccessfully": "تم تسجيل الخروج بنجاح",
+  "JoinRequestSendSuccessfully": "تم ارسال الطلب بنجاح"
+
+
+
 }

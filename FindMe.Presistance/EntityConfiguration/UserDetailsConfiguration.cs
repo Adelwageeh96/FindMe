@@ -13,8 +13,6 @@ namespace FindMe.Presistance.EntityConfiguration
     {
         public void Configure(EntityTypeBuilder<UserDetails> builder)
         {
-            builder.Property(ud => ud.Gendre)
-                .HasConversion<string>(); 
 
             builder.Property(ud => ud.MatiralStatus)
                 .HasConversion<string>();

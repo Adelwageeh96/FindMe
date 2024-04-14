@@ -1,4 +1,5 @@
-﻿using FindMe.Domain.Models;
+﻿using FindMe.Domain.Constants;
+using FindMe.Domain.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace FindMe.Domain.Identity
@@ -9,6 +10,7 @@ namespace FindMe.Domain.Identity
         public string? Address { get; set; }
         public byte[]? Photo { get; set; } 
         public string? FCMToken { get; set; }
+        public Gendre? Gendre { get; set; }
         public virtual UserDetails UserDetails { get; set; }
         public virtual ICollection<UserRelatives> UserRelatives { get; set; }
         public virtual List<RecognitionRequest> RecognitionRequests { get; set; }

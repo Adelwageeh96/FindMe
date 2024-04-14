@@ -2,12 +2,12 @@
 using FindMe.Application.Interfaces.Services;
 using FindMe.Infrastructure.Services.Authentication;
 using FindMe.Infrastructure.Services.Localization;
+using FindMe.Infrastructure.Services.Mail;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Options;
 using System.Globalization;
 
 
@@ -19,6 +19,8 @@ namespace FindMe.Infrastructure.Extention
         {
             services.AddLocalization()
                     .AddCollections();
+
+            services.Configure<MailSettings>(configuration.GetSection(MailSettings.Section));
 
             return services;
         }
@@ -52,6 +54,7 @@ namespace FindMe.Infrastructure.Extention
         private static IServiceCollection AddCollections(this IServiceCollection services)
         {
             services.AddTransient<IJwtTokenGenerator, JwtTokenGenerator>();
+            services.AddTransient<IMailingService, MailingService>();
             return services;
         }
 

@@ -52,6 +52,9 @@ namespace FindMe.Presistance.Migrations
                     b.Property<string>("FCMToken")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte?>("Gendre")
+                        .HasColumnType("tinyint");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -326,10 +329,6 @@ namespace FindMe.Presistance.Migrations
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Gendre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Job")
                         .IsRequired()

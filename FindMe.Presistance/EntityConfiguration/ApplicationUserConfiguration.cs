@@ -9,9 +9,11 @@ namespace FindMe.Presistance.EntityConfiguration
     {
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
+
             builder.Property(au => au.Address)
                 .HasMaxLength(300);
             
+
         }
     }
 }

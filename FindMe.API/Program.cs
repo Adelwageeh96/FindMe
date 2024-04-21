@@ -86,39 +86,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddCors();
 
-using (var scope = builder.Services.BuildServiceProvider().CreateScope())
-{
-    using (var applicationDb = scope?.ServiceProvider.GetRequiredService<ApplicationDbContext>())
-    {
-        if (applicationDb.Database.GetPendingMigrations().Any())
-        {
-            applicationDb.Database.Migrate();
-        }
-        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-        var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-        if (!roleManager.Roles.Any())
-        {
-            await roleManager.CreateAsync(new IdentityRole(Roles.ADMIN));
-            await roleManager.CreateAsync(new IdentityRole(Roles.USER));
-            await roleManager.CreateAsync(new IdentityRole(Roles.ORGANIZATION));
-        }
-        if (!userManager.Users.Any())
-        {
-            var user = new ApplicationUser()
-            {
-                Email = "Admin@gmail.com",
-                Name = "SystemAdmin",
-                PhoneNumber = "11111111111",
-                UserName = "Admin"
-            };
-
-            await userManager.CreateAsync(user, "Admin.12345");
-            await userManager.AddToRoleAsync(user, Roles.ADMIN);
-        }
-    }
-
-}
 var app = builder.Build();
 
 

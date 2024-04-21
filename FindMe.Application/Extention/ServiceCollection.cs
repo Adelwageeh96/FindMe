@@ -1,6 +1,9 @@
 ﻿using FindMe.Application.Features.Authentication.Commands.ChangePasswrod;
 using FindMe.Application.Features.Comments.Commands.Add;
 using FindMe.Application.Features.Comments.Commands.Update;
+using FindMe.Application.Features.PinPost.Commands.Pin;
+using FindMe.Application.Features.PinPost.Commands.UnPinPost;
+using FindMe.Application.Features.PinPost.Queries.GetUserPinnedPosts;
 using FindMe.Application.Features.Posts.Commands.Create;
 using FindMe.Application.Features.Posts.Commands.Update;
 using FindMe.Application.Features.Posts.Queries.GetAll;
@@ -56,6 +59,9 @@ namespace FindMe.Application.Extention
             services.AddTransient<IValidator<GetAllPostsQuery>, GetAllPostsQueryValidator>();
             services.AddTransient<IValidator<AddCommentCommand>, AddCommentCommandValidator>();
             services.AddTransient<IValidator<UpdateCommentCommand>, UpdateCommentCommandValidator>();
+            services.AddTransient<IValidator<PinPostCommand>, PinPostCommandValidator>();
+            services.AddTransient<IValidator<GetUserPinnedPostsCommand>, GetUserPinnedPostsCommandValidator>();
+            
             
             
             return services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());

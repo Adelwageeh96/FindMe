@@ -19,6 +19,7 @@ namespace FindMe.Application.Features.Posts.Commands.Create
 
             RuleFor(x => x.Photo).NotEmpty();
 
+
             RuleFor(x => x.PhoneNumber)
                .Cascade(CascadeMode.Stop)
                .Length(11)

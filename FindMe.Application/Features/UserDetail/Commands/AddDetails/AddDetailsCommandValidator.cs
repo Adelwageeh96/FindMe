@@ -18,7 +18,6 @@ namespace FindMe.Application.Features.UserDetail.Commands.AddDetails
             RuleFor(x => x.UserId).NotEmpty();
 
 
-
             RuleFor(x => x.UserDetails.NationalId)
               .NotEmpty()
               .Length(14)
@@ -29,12 +28,11 @@ namespace FindMe.Application.Features.UserDetail.Commands.AddDetails
                 .WithMessage("Invaild matiral status");
 
             RuleFor(x => x.UserDetails.PhoneNumber)
-                .Cascade(CascadeMode.Stop)
-                .NotEmpty()
-                .When(x => x.UserDetails.PhoneNumber == null)
-                .Length(11)
-                .Matches("^[0-9]*$").WithMessage(_localization["InvaildPhoneNumber"].Value); 
-                
+               .Cascade(CascadeMode.Stop)
+               .Length(11)
+               .Matches("^[0-9]*$").WithMessage(_localization["InvaildPhoneNumber"].Value)
+               .When(x => x.UserDetails.PhoneNumber == null);
+
         }
     }
 }

@@ -14,10 +14,11 @@ namespace FindMe.Application.Common.Mapping
     {
         public void Register(TypeAdapterConfig config)
         {
-            TypeAdapterConfig<AddDetailsCommand, UserDetails>.NewConfig()
-                .Map(dest => dest.MatiralStatus, src => Map.MapMatiralStatus(src.UserDetails.MatiralStatus))
-                .Map(dest=>dest , src=>src.UserDetails)
-                .Map(dest => dest.ApplicationUserId, src => src.UserId);
+            TypeAdapterConfig<(AddDetailsCommand Command, byte Photo), UserDetails>.NewConfig()
+                .Map(dest => dest.MatiralStatus, src => Map.MapMatiralStatus(src.Command.UserDetails.MatiralStatus))
+                .Map(dest => dest, src => src.Command.UserDetails)
+                .Map(dest => dest.ApplicationUserId, src => src.Commnad.UserId)
+                .Map(dest => dest.Photo, src => src.Photo);
 
             TypeAdapterConfig<UpdateDetailsCommand, UserDetails>.NewConfig()
                 .Map(dest => dest.MatiralStatus, src => Map.MapMatiralStatus(src.UserDetails.MatiralStatus))

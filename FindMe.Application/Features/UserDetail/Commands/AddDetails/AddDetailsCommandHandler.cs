@@ -70,7 +70,10 @@ namespace FindMe.Application.Features.UserDetail.Commands.AddDetails
                 return await Response.FailureAsync(_stringLocalizer["PhoneNumberExist"].Value);
             }
 
-            var userDetails = _mapper.Map<UserDetails>(command);
+            using var dataStream = new MemoryStream();
+            await command.UserDetails.Photo.CopyToAsync(dataStream);
+
+            var userDetails = _mapper.Map<UserDetails>((command,dataStream.ToArray()));
             await _unitOfWork.Repository<UserDetails>().AddAsync(userDetails);
 
             await _unitOfWork.SaveAsync();

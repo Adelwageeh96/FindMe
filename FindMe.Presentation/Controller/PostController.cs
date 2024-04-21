@@ -1,4 +1,7 @@
-﻿using FindMe.Application.Features.Posts.Commands.Create;
+﻿using FindMe.Application.Features.PinPost.Commands.Pin;
+using FindMe.Application.Features.PinPost.Commands.UnPinPost;
+using FindMe.Application.Features.PinPost.Queries.GetUserPinnedPosts;
+using FindMe.Application.Features.Posts.Commands.Create;
 using FindMe.Application.Features.Posts.Commands.Delete;
 using FindMe.Application.Features.Posts.Commands.Update;
 using FindMe.Application.Features.Posts.Queries.GetAll;
@@ -51,5 +54,25 @@ namespace FindMe.Presentation.Controller
         {
             return Ok(await _mediator.Send(new GetPostByIdQuery(id)));
         }
+
+        [HttpPost("Pin")]
+        public async Task<ActionResult<Response>> PinAsync(PinPostCommand command)
+        {
+            return Ok(await _mediator.Send(command));
+        }
+
+        [HttpPost("UnPin")]
+        public async Task<ActionResult<Response>>UnPinAsync(UnPinPostCommand command)
+        {
+            return Ok(await _mediator.Send(command));
+        }
+
+        [HttpGet("Pinned")]
+        public async Task<ActionResult<Response>> UnPinAsync([FromQuery]GetUserPinnedPostsCommand command)
+        {
+            return Ok(await _mediator.Send(command));
+        }
+
+
     }
 }

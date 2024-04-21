@@ -10,6 +10,7 @@ namespace FindMe.Domain.Models
         public MatiralStatus MatiralStatus { get; set; }
         public DateTime BirthDate { get; set; }
         public string Job { get; set; }
+        public byte[] Photo { get; set; }
         public string? PhoneNumber { get; set; } 
         public string? Notes { get; set; } 
         public string ApplicationUserId { get; set; } 

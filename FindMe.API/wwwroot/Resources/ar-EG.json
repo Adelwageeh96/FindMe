@@ -1,5 +1,6 @@
 {
   "Success": ".عملية ناجحة",
+  "InvaildOperationForThisActor": "هذه العمليه غير متاحه لهذا المستخدم",
   "FailedCreateAccount": ".فشل اضافة مستخدم",
   "UserNotFound": ".فشل ايجاد المستخدم",
   "InvalidLogin": ".خطا فى عملية تسجيل الدخول",
@@ -14,7 +15,17 @@
   "AccountCreatedSuccessfully": "تم إنشاء الحساب بنجاح",
   "LoginSuccessfully": "تم تسجيل الدخول بنجاح",
   "LogoutSuccessfully": "تم تسجيل الخروج بنجاح",
-  "JoinRequestSendSuccessfully": "تم ارسال الطلب بنجاح"
+  "JoinRequestSendSuccessfully": "تم ارسال الطلب بنجاح",
+  "InvaildNationalNumber": "الرقم القومى يجب ان يتكون من 14 رقم فقط ",
+  "InvaildRealationship": "علاقه غير صحيحه",
+  "WrongPassword": "خطا فى كلمة المرور",
+  "WrongChangingPassword": "خطا فى تغير كلمة المرور ",
+  "PasswordChagnedSuccessfuly": "تم تغير كلمة المرور بنجاح",
+  "NewAndOldPasswordcanNotBeSame": "برجاء ادخال كلمة مرور غير المستخدمه"
+
+
+
+
 
 
 

@@ -1,8 +1,12 @@
 ﻿using FindMe.Application.Features.Authentication.Commands.AdminRegister;
+using FindMe.Application.Features.Authentication.Commands.ChangePasswrod;
 using FindMe.Application.Features.Authentication.Commands.LogOut;
 using FindMe.Application.Features.Authentication.Commands.UserRegister;
 using FindMe.Application.Features.Authentication.Common;
 using FindMe.Application.Features.Authentication.Queries.Login;
+using FindMe.Application.Features.Profile.Commands;
+using FindMe.Application.Features.Profile.Common;
+using FindMe.Application.Features.Profile.Queries;
 using FindMe.Domain.Constants;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -41,11 +45,31 @@ namespace FindMe.Presentation.Controller
             return Ok(await _mediator.Send(command));
         }
 
-        [Authorize(Roles=$"{Roles.ADMIN},{Roles.USER},{Roles.ORGANIZATION}")]
+        [Authorize]
         [HttpPost("Logout")]
         public async Task<ActionResult<string>>LogoutAsynce(LogOutCommand command)
         {
             return Ok(await _mediator.Send(command));
         }
+
+        [HttpGet("GetProfile/{id}")]
+        public async Task<ActionResult<ProfileDto>>GetProfileAsync(string id)
+        {
+            return Ok(await _mediator.Send(new GetProfileQuery(id)));
+        }
+
+        [HttpPut("UpdateProfile")]
+        public async Task<ActionResult<string>>UpdateProfileAsync([FromForm]EditProfileCommand command)
+        {
+            return Ok(await _mediator.Send(command));
+        }
+
+        [HttpPost("ChangePassword")]
+        public async Task<ActionResult<string>>ChangePasswordAsync(ChangePasswordCommand command)
+        {
+            return Ok(await _mediator.Send(command));
+        }
+
+
     }
 }

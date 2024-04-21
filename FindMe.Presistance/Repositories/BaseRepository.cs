@@ -34,6 +34,12 @@ namespace FindMe.Presistance.Repositories
         {
             await _context.Set<T>().AddRangeAsync(input);
         }
+
+        public async Task UpdateRangeAsync(List<T> input)
+        {
+            await Task.CompletedTask;
+            _context.Set<T>().UpdateRange(input);
+        }
         public Task UpdateAsync(T input)
         {
             _context.Update(input);
@@ -55,6 +61,7 @@ namespace FindMe.Presistance.Repositories
         }
         public async Task<T> GetItemOnAsync(Func<T, bool> match)
         {
+            
             return _context.Set<T>().FirstOrDefault(match);
         }
         public async Task<IEnumerable<T>> GetAllAsync()

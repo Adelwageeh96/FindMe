@@ -241,6 +241,9 @@ namespace FindMe.Presistance.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<byte[]>("Photo")
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
@@ -252,7 +255,36 @@ namespace FindMe.Presistance.Migrations
                     b.ToTable("Posts", "FindMe");
                 });
 
-            modelBuilder.Entity("FindMe.Domain.Models.RecognitionRequest", b =>
+            modelBuilder.Entity("FindMe.Domain.Models.RecognitionRequestResult", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("FirstSimilarityId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RecognitionRequestId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SecondSimilarityId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ThirdSimilarityId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecognitionRequestId")
+                        .IsUnique();
+
+                    b.ToTable("RecognitionRequestsResult", "FindMe");
+                });
+
+            modelBuilder.Entity("FindMe.Domain.Models.RecognitionRequests", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -284,35 +316,6 @@ namespace FindMe.Presistance.Migrations
                     b.HasIndex("ApplicationUserId");
 
                     b.ToTable("RecognitionRequests", "FindMe");
-                });
-
-            modelBuilder.Entity("FindMe.Domain.Models.RecognitionRequestResult", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("FirstSimilarityId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("RecognitionRequestId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SecondSimilarityId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ThirdSimilarityId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RecognitionRequestId")
-                        .IsUnique();
-
-                    b.ToTable("RecognitionRequestsResult", "FindMe");
                 });
 
             modelBuilder.Entity("FindMe.Domain.Models.UserDetails", b =>
@@ -576,7 +579,18 @@ namespace FindMe.Presistance.Migrations
                     b.Navigation("ApplicationUser");
                 });
 
-            modelBuilder.Entity("FindMe.Domain.Models.RecognitionRequest", b =>
+            modelBuilder.Entity("FindMe.Domain.Models.RecognitionRequestResult", b =>
+                {
+                    b.HasOne("FindMe.Domain.Models.RecognitionRequests", "RecognitionRequest")
+                        .WithOne("RecognitionRequestResult")
+                        .HasForeignKey("FindMe.Domain.Models.RecognitionRequestResult", "RecognitionRequestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("RecognitionRequest");
+                });
+
+            modelBuilder.Entity("FindMe.Domain.Models.RecognitionRequests", b =>
                 {
                     b.HasOne("FindMe.Domain.Identity.ApplicationUser", "ApplicationUser")
                         .WithMany("RecognitionRequests")
@@ -585,17 +599,6 @@ namespace FindMe.Presistance.Migrations
                         .IsRequired();
 
                     b.Navigation("ApplicationUser");
-                });
-
-            modelBuilder.Entity("FindMe.Domain.Models.RecognitionRequestResult", b =>
-                {
-                    b.HasOne("FindMe.Domain.Models.RecognitionRequest", "RecognitionRequest")
-                        .WithOne("RecognitionRequestResult")
-                        .HasForeignKey("FindMe.Domain.Models.RecognitionRequestResult", "RecognitionRequestId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("RecognitionRequest");
                 });
 
             modelBuilder.Entity("FindMe.Domain.Models.UserDetails", b =>
@@ -692,7 +695,7 @@ namespace FindMe.Presistance.Migrations
                     b.Navigation("Comments");
                 });
 
-            modelBuilder.Entity("FindMe.Domain.Models.RecognitionRequest", b =>
+            modelBuilder.Entity("FindMe.Domain.Models.RecognitionRequests", b =>
                 {
                     b.Navigation("RecognitionRequestResult")
                         .IsRequired();

@@ -9,6 +9,7 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
+using System.Reflection;
 using System.Text;
 
 namespace FindMe.Application.Features.Organization.Commands.ApproveJoinRequest
@@ -67,8 +68,14 @@ namespace FindMe.Application.Features.Organization.Commands.ApproveJoinRequest
                 return await Response.FailureAsync(result.Errors.First().Description);
             }
 
-            string templatePath = "D:/Project/FindMe/FindMe.Application/Common/EmailTemplates/OrganizationApprovalTemplate.html";
-            string emailTemplate = File.ReadAllText(templatePath);
+            var resourceName = "FindMe.Application.Common.EmailTemplates.OrganizationApprovalTemplate.html";
+            var assembly = Assembly.GetExecutingAssembly();
+            string emailTemplate;
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                emailTemplate = await reader.ReadToEndAsync();
+            }
             emailTemplate = emailTemplate.Replace("{Email}", organizaitonJoinRequest.Email);
             emailTemplate = emailTemplate.Replace("{Password}", tempPassword);
             string subject = "Welcome to FindMe App - Admin Role Assignment";
@@ -79,7 +86,7 @@ namespace FindMe.Application.Features.Organization.Commands.ApproveJoinRequest
 
         private async Task<string> GenerateUniqueUsernameAsync(string email)
         {
-            string username = email.Split('@')[0];
+            string username = email.Split('@')[0].ToLower();
             Random random = new();
             while (await _userManager.Users.AnyAsync(u => u.UserName == username))
             {

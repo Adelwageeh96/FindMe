@@ -37,7 +37,7 @@ namespace FindMe.Presistance.Context
         public DbSet<OrganizaitonJoinRequest> OrganizaitonJoinRequests { get; set; }
         public DbSet<PinnedPost> PinnedPosts { get; set; }
         public DbSet<Post> Posts { get; set; }
-        public DbSet<RecognitionRequest> RecognitionRequests { get; set; }
+        public DbSet<RecognitionRequests> RecognitionRequests { get; set; }
         public DbSet<RecognitionRequestResult> RecognitionRequestsResult { get; set;}
         public DbSet<UserDetails> UserDetails { get; set; }
         public DbSet<UserRelatives> UserRelatives { get; set; } 

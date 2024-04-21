@@ -8,6 +8,6 @@ namespace FindMe.Domain.Models
         public string? SecondSimilarityId { get; set; }
         public string? ThirdSimilarityId { get; set; }
         public int RecognitionRequestId { get; set; }
-        public virtual RecognitionRequest RecognitionRequest { get; set; }
+        public virtual RecognitionRequests RecognitionRequest { get; set; }
     }
 }

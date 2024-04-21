@@ -8,7 +8,6 @@ using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace FindMe.Application.Features.Authentication.Queries.Login
 {
@@ -44,11 +43,14 @@ namespace FindMe.Application.Features.Authentication.Queries.Login
             if(user is null)
             {
                 user = await _userManager.FindByNameAsync(query.UserIdentifier);
-                if (user is null || !await _userManager.CheckPasswordAsync(user,query.Password))
+                if (user is null)
                 {
                     return await Response.FailureAsync(_stringLocalizer["InvalidLogin"].Value);
                 }
-
+            }
+            if(!await _userManager.CheckPasswordAsync(user, query.Password))
+            {
+                return await Response.FailureAsync(_stringLocalizer["InvalidLogin"].Value);
             }
             user.FCMToken = query.FcmToken;
             var role =  _userManager.GetRolesAsync(user).Result.First();

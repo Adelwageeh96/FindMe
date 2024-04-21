@@ -11,9 +11,11 @@ namespace FindMe.Application.Interfaces.Repositories
         public Task AddAsync(T input);
         Task AddRangeAsync(List<T> input);
 
+        Task UpdateRangeAsync(List<T> input);
         public Task UpdateAsync(T input);
 
         public Task DeleteAsync(T input);
         Task DeleteRange(List<T> input);
+
     }
 }

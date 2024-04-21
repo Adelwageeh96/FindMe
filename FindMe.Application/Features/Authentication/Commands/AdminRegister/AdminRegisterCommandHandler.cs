@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using System.Data;
+using System.Reflection;
 using System.Text;
 
 namespace FindMe.Application.Features.Authentication.Commands.AdminRegister
@@ -76,8 +77,14 @@ namespace FindMe.Application.Features.Authentication.Commands.AdminRegister
                 return await Response.FailureAsync(result.Errors.First().Description);
             }
 
-            string templatePath = "D:/Project/FindMe/FindMe.Application/Common/EmailTemplates/InfromAdminTemplate.html";
-            string emailTemplate = File.ReadAllText(templatePath);
+            var resourceName = "FindMe.Application.Common.EmailTemplates.InfromAdminTemplate.html";
+            var assembly = Assembly.GetExecutingAssembly();
+            string emailTemplate;
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                emailTemplate = await reader.ReadToEndAsync();
+            }
             emailTemplate = emailTemplate.Replace("{Email}", command.Email);
             emailTemplate = emailTemplate.Replace("{Password}", tempPassword);
             string subject = "Welcome to FindMe App - Organization Registration Approval";
@@ -89,7 +96,7 @@ namespace FindMe.Application.Features.Authentication.Commands.AdminRegister
 
         private async Task<string> GenerateUniqueUsernameAsync(string email)
         {
-            string username = email.Split('@')[0];
+            string username = email.Split('@')[0].ToLower();
             Random random = new();
             while (await _userManager.Users.AnyAsync(u => u.UserName == username))
             {

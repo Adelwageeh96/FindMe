@@ -4,7 +4,7 @@ using MediatR;
 
 namespace FindMe.Application.Features.Organization.Commands.DisapproveJoinRequest
 {
-    public class DisapproveJoinRequestCommand : IRequest<Response>
+    public record DisapproveJoinRequestCommand : IRequest<Response>
     {
         public int Id { get; set; }
 

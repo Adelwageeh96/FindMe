@@ -5,6 +5,7 @@ using FindMe.Domain.Models;
 using FindMe.Shared;
 using MediatR;
 using Microsoft.Extensions.Localization;
+using System.Reflection;
 
 namespace FindMe.Application.Features.Organization.Commands.DisapproveJoinRequest
 {
@@ -37,8 +38,14 @@ namespace FindMe.Application.Features.Organization.Commands.DisapproveJoinReques
             }
             await _unitOfWork.Repository<OrganizaitonJoinRequest>().DeleteAsync(organizaitonJoinRequest);
             await _unitOfWork.SaveAsync();
-            string templatePath = "D:/Project/FindMe/FindMe.Application/Common/EmailTemplates/OrganizationDisapprovalTemplate.html";
-            string emailTemplate = File.ReadAllText(templatePath);
+            var resourceName = "FindMe.Application.Common.EmailTemplates.OrganizationDisapprovalTemplate.html";
+            var assembly = Assembly.GetExecutingAssembly();
+            string emailTemplate;
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                emailTemplate = await reader.ReadToEndAsync();
+            }
             string subject = "FindMe App - Organization Registration Disapproval";
             await _mailingService.SendEmailAsync(organizaitonJoinRequest.Email, subject, emailTemplate);
             return await Response.SuccessAsync(_stringLocalizer["Success"].Value);

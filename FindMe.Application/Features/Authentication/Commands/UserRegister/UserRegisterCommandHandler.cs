@@ -77,7 +77,7 @@ namespace FindMe.Application.Features.Authentication.Commands.UserRegister
 
         private async Task<string> GenerateUniqueUsernameAsync(string email)
         {
-            string username = email.Split('@')[0];
+            string username = email.Split('@')[0].ToLower();
             Random random = new();
             while (await _userManager.Users.AnyAsync(u => u.UserName == username))
             {

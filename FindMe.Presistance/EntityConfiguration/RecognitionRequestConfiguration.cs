@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace FindMe.Presistance.EntityConfiguration
 {
-    internal class RecognitionRequestConfiguration : IEntityTypeConfiguration<RecognitionRequest>
+    internal class RecognitionRequestConfiguration : IEntityTypeConfiguration<RecognitionRequests>
     {
-        public void Configure(EntityTypeBuilder<RecognitionRequest> builder)
+        public void Configure(EntityTypeBuilder<RecognitionRequests> builder)
         {
             builder.Property(rr => rr.Descripation)
                .HasMaxLength(1000);

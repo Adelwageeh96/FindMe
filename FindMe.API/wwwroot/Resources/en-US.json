@@ -1,5 +1,6 @@
 {
   "Success": "Successful operation",
+  "InvaildOperationForThisActor": "Invaild operation for this actor",
   "FailedCreateAccount": "Faild create account",
   "UserNotFound": "User not found",
   "InvalidLogin": "Invaild login",
@@ -14,5 +15,12 @@
   "AccountCreatedSuccessfully": "Account created successfully",
   "LoginSuccessfully": "Login Successfully",
   "LogoutSuccessfully": "Logout Successfully",
-  "JoinRequestSendSuccessfully": "Join request send successfully"
+  "JoinRequestSendSuccessfully": "Join request send successfully",
+  "InvaildNationalNumber": "National number must be only 14 digit",
+  "InvaildRealationship": "Invaild realationship",
+  "WrongPassword": "Wrong password",
+  "WrongChangingPassword": "Error changing password ",
+  "PasswordChagnedSuccessfuly": "Password Chagned Successfuly",
+  "NewAndOldPasswordcanNotBeSame": "New and old password can not be the same"
+
 }

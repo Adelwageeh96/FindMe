@@ -7,6 +7,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Common\Mapping\User.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Common\EmailTemplates\InfromAdminTemplate.html" />
+    <None Remove="Common\EmailTemplates\OrganizationApprovalTemplate.html" />
+    <None Remove="Common\EmailTemplates\OrganizationDisapprovalTemplate.html" />
+    <None Remove="Common\Photos\DefaultPhoto.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Common\EmailTemplates\InfromAdminTemplate.html" />
+    <EmbeddedResource Include="Common\EmailTemplates\OrganizationApprovalTemplate.html" />
+    <EmbeddedResource Include="Common\EmailTemplates\OrganizationDisapprovalTemplate.html" />
+    <EmbeddedResource Include="Common\Mapping\User.cs" />
+    <EmbeddedResource Include="Common\Photos\DefaultPhoto.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentValidation" Version="11.9.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0" />
@@ -22,8 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\User\Commands\" />
-    <Folder Include="Features\User\Queries\" />
+    <Folder Include="Features\RecognitionRequest\Common\" />
   </ItemGroup>
 
 </Project>

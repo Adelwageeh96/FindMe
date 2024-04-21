@@ -13,7 +13,7 @@ namespace FindMe.Domain.Identity
         public Gendre? Gendre { get; set; }
         public virtual UserDetails UserDetails { get; set; }
         public virtual ICollection<UserRelatives> UserRelatives { get; set; }
-        public virtual List<RecognitionRequest> RecognitionRequests { get; set; }
+        public virtual List<RecognitionRequests> RecognitionRequests { get; set; }
         public virtual List<PinnedPost> PinnedPosts { get; set; }
         public virtual List<Post> Posts { get; set; }
         public virtual List<Comment> Comments { get; set; }

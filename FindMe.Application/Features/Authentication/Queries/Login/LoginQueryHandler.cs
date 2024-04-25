@@ -52,11 +52,11 @@ namespace FindMe.Application.Features.Authentication.Queries.Login
             {
                 return await Response.FailureAsync(_stringLocalizer["InvalidLogin"].Value);
             }
-            user.FCMToken = query.FcmToken;
             var role =  _userManager.GetRolesAsync(user).Result.First();
             var token = await _jwtTokenGenerator.GenerateTokenAsync(user, role);
-
             var response = (role, token, user).Adapt<AuthenticationDto>();
+            user.FCMToken = query.FcmToken;
+            await _userManager.UpdateAsync(user);
 
             return await Response.SuccessAsync(response, _stringLocalizer["LoginSuccessfully"]);
 

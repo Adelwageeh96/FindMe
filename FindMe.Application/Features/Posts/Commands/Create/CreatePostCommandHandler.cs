@@ -60,7 +60,7 @@ namespace FindMe.Application.Features.Posts.Commands.Create
             await _unitOfWork.Repository<Post>().AddAsync(post);
             await _unitOfWork.SaveAsync();
 
-            return await Response.SuccessAsync(_stringLocalizer["Success"].Value);
+            return await Response.SuccessAsync(new {PostId=post.Id},_stringLocalizer["PostCreatedSuccessfuly"].Value);
 
         }
     }

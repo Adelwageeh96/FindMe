@@ -63,7 +63,7 @@ namespace FindMe.Application.Features.UserRelative.Commands.AddRelatives
             await _unitOfWork.Repository<UserRelatives>().AddRangeAsync(userRelatives);
             await _unitOfWork.SaveAsync();
 
-            return await Response.SuccessAsync(_localization["Success"].Value);
+            return await Response.SuccessAsync(new { UserId = user.Id },_localization["UserRelativesAdded"].Value);
         }
     }
 }

@@ -32,7 +32,7 @@ namespace FindMe.Application.Features.Profile.Queries
         {
             if (await _userManager.FindByIdAsync(query.UserId) is not ApplicationUser user)
             {
-                return await Response.FailureAsync("There is no user with this user Id", HttpStatusCode.NotFound);
+                return await Response.FailureAsync("There is no user with this Id", HttpStatusCode.NotFound);
             }
             ProfileDto profileDto;
             if(user.Photo is null)

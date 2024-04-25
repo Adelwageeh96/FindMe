@@ -41,9 +41,9 @@ namespace FindMe.Application.Features.UserDetail.Commands.UpdateDetails
                 return await Response.FailureAsync(validationResult.Errors.First().ErrorMessage);
             }
 
-            if (await _unitOfWork.Repository<UserDetails>().GetByIdAsync(command.Id) is not UserDetails userDetails)
+            if (await _unitOfWork.Repository<UserDetails>().GetItemOnAsync(us=>us.ApplicationUserId==command.UserId) is not UserDetails userDetails)
             {
-                return await Response.FailureAsync("Id don't exist");
+                return await Response.FailureAsync("There is no user with this user Id");
             }
 
             if (userDetails.NationalId !=command.UserDetails.NationalId && await _unitOfWork.Repository<UserDetails>().AnyAsync(ud => ud.NationalId == command.UserDetails.NationalId))
@@ -56,13 +56,15 @@ namespace FindMe.Application.Features.UserDetail.Commands.UpdateDetails
             {
                 return await Response.FailureAsync(_stringLocalizer["PhoneNumberExist"].Value);
             }
+            using var dataStream = new MemoryStream();
+            await command.UserDetails.Photo.CopyToAsync(dataStream);
 
-             _mapper.Map(command.UserDetails, userDetails);
+            _mapper.Map((command.UserDetails,dataStream.ToArray()), userDetails);
 
             await _unitOfWork.Repository<UserDetails>().UpdateAsync(userDetails);
             await _unitOfWork.SaveAsync();
 
-            return await Response.SuccessAsync(userDetails.Id, _stringLocalizer["Success"].Value);
+            return await Response.SuccessAsync(new { UserDetailsId= userDetails.Id }, _stringLocalizer["UserDetailsUpdated"].Value);
         }
     }
 }

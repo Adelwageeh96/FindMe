@@ -29,7 +29,7 @@ namespace FindMe.Application.Features.Organization.Commands.DisapproveJoinReques
         {
             if (await _unitOfWork.Repository<OrganizaitonJoinRequest>().GetByIdAsync(command.Id) is not OrganizaitonJoinRequest organizaitonJoinRequest)
             {
-                return await Response.FailureAsync("There is no request by this Id");
+                return await Response.FailureAsync("There is no request with this Id");
             }
 
             if (organizaitonJoinRequest.IsApproved)
@@ -38,6 +38,7 @@ namespace FindMe.Application.Features.Organization.Commands.DisapproveJoinReques
             }
             await _unitOfWork.Repository<OrganizaitonJoinRequest>().DeleteAsync(organizaitonJoinRequest);
             await _unitOfWork.SaveAsync();
+
             var resourceName = "FindMe.Application.Common.EmailTemplates.OrganizationDisapprovalTemplate.html";
             var assembly = Assembly.GetExecutingAssembly();
             string emailTemplate;
@@ -48,7 +49,7 @@ namespace FindMe.Application.Features.Organization.Commands.DisapproveJoinReques
             }
             string subject = "FindMe App - Organization Registration Disapproval";
             await _mailingService.SendEmailAsync(organizaitonJoinRequest.Email, subject, emailTemplate);
-            return await Response.SuccessAsync(_stringLocalizer["Success"].Value);
+            return await Response.SuccessAsync(_stringLocalizer["RequestDisapproval"].Value);
         }
     }
 }

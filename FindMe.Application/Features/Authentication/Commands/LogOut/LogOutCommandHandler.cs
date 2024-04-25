@@ -34,7 +34,10 @@ namespace FindMe.Application.Features.Authentication.Commands.LogOut
             {
                 return await Response.FailureAsync("Invaild Fcm Token",HttpStatusCode.NotFound);
             }
+
             user.FCMToken = null;
+            await _userManager.UpdateAsync(user);
+
             return await Response.SuccessAsync(_stringLocalizer["LogoutSuccessfully"].Value);
         }
     }

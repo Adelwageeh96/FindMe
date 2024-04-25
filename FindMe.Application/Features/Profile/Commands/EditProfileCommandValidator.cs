@@ -16,7 +16,7 @@ namespace FindMe.Application.Features.Profile.Commands
 
             RuleFor(x => x.profileDto.PhoneNumber)
                .NotEmpty()
-               .Length(11)
+               .Length(11).WithMessage(_stringLocalizer["InvaildPhoneNumber"].Value)
                .Matches("^[0-9]*$").WithMessage(_stringLocalizer["InvaildPhoneNumber"].Value);
 
             RuleFor(x => x.profileDto.Address)

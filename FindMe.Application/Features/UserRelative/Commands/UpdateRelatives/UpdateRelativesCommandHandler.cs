@@ -52,7 +52,7 @@ namespace FindMe.Application.Features.UserRelative.Commands.UpdateRelatives
             await _unitOfWork.Repository<UserRelatives>().UpdateRangeAsync(userRelatives);
             await _unitOfWork.SaveAsync();
 
-            return await Response.SuccessAsync(_stringLocalizer["Success"].Value);
+            return await Response.SuccessAsync(new { UserId = userRelatives[0].ApplicationUserId }, _stringLocalizer["UserRelativesUpdated"].Value);
         }
     }
 }

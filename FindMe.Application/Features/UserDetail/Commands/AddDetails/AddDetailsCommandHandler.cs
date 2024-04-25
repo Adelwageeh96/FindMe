@@ -1,4 +1,5 @@
 ﻿using FindMe.Application.Interfaces.Repositories;
+using FindMe.Application.Interfaces.Services;
 using FindMe.Domain.Constants;
 using FindMe.Domain.Identity;
 using FindMe.Domain.Models;
@@ -9,6 +10,8 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
+using Microsoft.IdentityModel.Tokens;
+using System.Diagnostics;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 
@@ -21,18 +24,21 @@ namespace FindMe.Application.Features.UserDetail.Commands.AddDetails
         private readonly IValidator<AddDetailsCommand> _validator;
         private readonly IMapper _mapper;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IHumanDetectionService _humanDetectionService;
         public AddDetailsCommandHandler(
             IUnitOfWork unitOfWork,
             IStringLocalizer<AddDetailsCommand> stringLocalizer,
             IValidator<AddDetailsCommand> validator,
             IMapper mapper,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            IHumanDetectionService humanDetectionService)
         {
             _unitOfWork = unitOfWork;
             _stringLocalizer = stringLocalizer;
             _validator = validator;
             _mapper = mapper;
             _userManager = userManager;
+            _humanDetectionService = humanDetectionService;
         }
 
 
@@ -70,6 +76,26 @@ namespace FindMe.Application.Features.UserDetail.Commands.AddDetails
                 return await Response.FailureAsync(_stringLocalizer["PhoneNumberExist"].Value);
             }
 
+            //var response = await _humanDetectionService.VerifyHumanAsync(command.UserDetails.Photo);
+            //if (!response.IsSuccess)
+            //{
+            //    if (response.Message.IsNullOrEmpty())
+            //    {
+            //        return await Response.FailureAsync(_stringLocalizer["HumanDetectionError"].Value);
+            //    }
+            //    else
+            //        return await Response.FailureAsync($"{response.Message}");
+            //}
+
+            //var tempFilePath = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid()}.jpg");
+            //await File.WriteAllBytesAsync(tempFilePath,  response.Data);
+
+            //// Log the path of the temporary file to view the photo
+            //Console.WriteLine($"Photo saved to: {tempFilePath}");
+
+            //// Open the photo using the default image viewer
+            //Process.Start(tempFilePath);
+
             using var dataStream = new MemoryStream();
             await command.UserDetails.Photo.CopyToAsync(dataStream);
 
@@ -78,7 +104,7 @@ namespace FindMe.Application.Features.UserDetail.Commands.AddDetails
 
             await _unitOfWork.SaveAsync();
 
-            return await Response.SuccessAsync(_stringLocalizer["Success"].Value);
+            return await Response.SuccessAsync(new { UserDetailsId= userDetails.Id },_stringLocalizer["UserDetailsAdded"].Value);
         }
     }
 }

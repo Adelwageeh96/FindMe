@@ -1,5 +1,6 @@
 ﻿using FindMe.Application.Interfaces.Authentication;
 using FindMe.Application.Interfaces.Services;
+using FindMe.Infrastructure.Services;
 using FindMe.Infrastructure.Services.Authentication;
 using FindMe.Infrastructure.Services.Localization;
 using FindMe.Infrastructure.Services.Mail;
@@ -55,6 +56,7 @@ namespace FindMe.Infrastructure.Extention
         {
             services.AddTransient<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddTransient<IMailingService, MailingService>();
+            services.AddTransient<IHumanDetectionService,HumanDetectionService>();
             return services;
         }
 

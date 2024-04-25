@@ -31,7 +31,7 @@ namespace FindMe.Application.Features.Comments.Commands.Delete
             await _unitOfWork.Repository<Comment>().DeleteAsync(comment);
             await _unitOfWork.SaveAsync();
 
-            return await Response.SuccessAsync(_stringLocalizer["Success"].Value);
+            return await Response.SuccessAsync(_stringLocalizer["CommentDeletedSuccessfuly"].Value);
 
         }
     }

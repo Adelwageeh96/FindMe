@@ -21,6 +21,24 @@
   "WrongPassword": "Wrong password",
   "WrongChangingPassword": "Error changing password ",
   "PasswordChagnedSuccessfuly": "Password Chagned Successfuly",
-  "NewAndOldPasswordcanNotBeSame": "New and old password can not be the same"
+  "NewAndOldPasswordcanNotBeSame": "New and old password can not be the same",
+  "ProfileUpdatedSuccessfuly": "Profile updated successfuly",
+  "RequestApproval": "Request approved successfuly",
+  "RequestDisapproval": "Request disapproved successfuly",
+  "PostCreatedSuccessfuly": "Post created successfuly",
+  "PostUpdatedSuccessfuly": "Post Updated successfuly",
+  "PostDeletedSuccessfuly": "Post deleted successfuly",
+  "PostPinnedSuccessfuly": "Post pinned successfuly",
+  "PostUnPinnedSuccessfuly": "Post unpinned successfuly",
+  "CommentAddedSuccessfuly": "Comment added successfuly ",
+  "CommentUpdatedSuccessfuly": "Comment updated successfuly",
+  "CommentDeletedSuccessfuly": "Comment deleted successfuly",
+  "HumanDetectionError": "The image must contain one person and be close to the face",
+  "UserDetailsAdded": "User details added successfully",
+  "UserDetailsUpdated": "User details updated successfully",
+  "UserRelativesAdded": "User relatives added successfully",
+  "UserRelativesUpdated": "User relatives updated successfully",
+  "PhoneNumberEqualityError": "PhoneNumber1 and PhoneNumber2 can't be the same"
+
 
 }

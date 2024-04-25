@@ -52,7 +52,7 @@ namespace FindMe.Application.Features.UserRelative.Queries.GetRelatives
                 userRelatives.Add(_mapper.Map<UserRelativeDto>(relative));
             }
 
-            return await Response.SuccessAsync(userRelatives, _stringLocalizer["Success"].Value);
+            return await Response.SuccessAsync(userRelatives);
         }
     }
 }

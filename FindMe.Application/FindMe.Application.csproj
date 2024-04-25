@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Common\Mapping\User.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="Common\EmailTemplates\InfromAdminTemplate.html" />
     <None Remove="Common\EmailTemplates\OrganizationApprovalTemplate.html" />
     <None Remove="Common\EmailTemplates\OrganizationDisapprovalTemplate.html" />
@@ -21,7 +17,6 @@
     <EmbeddedResource Include="Common\EmailTemplates\InfromAdminTemplate.html" />
     <EmbeddedResource Include="Common\EmailTemplates\OrganizationApprovalTemplate.html" />
     <EmbeddedResource Include="Common\EmailTemplates\OrganizationDisapprovalTemplate.html" />
-    <EmbeddedResource Include="Common\Mapping\User.cs" />
     <EmbeddedResource Include="Common\Photos\DefaultPhoto.jpg" />
   </ItemGroup>
 

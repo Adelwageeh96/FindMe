@@ -4,6 +4,7 @@ using FindMe.Application.Features.Authentication.Commands.LogOut;
 using FindMe.Application.Features.Authentication.Commands.UserRegister;
 using FindMe.Application.Features.Authentication.Common;
 using FindMe.Application.Features.Authentication.Queries.Login;
+using FindMe.Application.Features.Organization.Commands.SendJoinRequest;
 using FindMe.Application.Features.Profile.Commands;
 using FindMe.Application.Features.Profile.Common;
 using FindMe.Application.Features.Profile.Queries;
@@ -32,15 +33,14 @@ namespace FindMe.Presentation.Controller
             return Ok(await _mediator.Send(query));
         }
 
-        [HttpPost("UserRegister")]
-        public async Task<ActionResult<string>>UserRegisterAsync(UserRegisterCommand command)
+        [HttpPost("Register")]
+        public async Task<ActionResult<string>>RegisterAsync(UserRegisterCommand command)
         {
             return Ok(await _mediator.Send(command));
         }
 
-        [Authorize(Roles =$"{Roles.ADMIN}")]
-        [HttpPost("AdminRegister")]
-        public async Task<ActionResult<string>>AdminRegisterAsync(AdminRegisterCommand command)
+        [HttpPost("OrganizationJoinReqest")]
+        public async Task<ActionResult<string>>SendJoinRequestAsync([FromForm] SendJoinRequestCommand command)
         {
             return Ok(await _mediator.Send(command));
         }
@@ -51,24 +51,26 @@ namespace FindMe.Presentation.Controller
         {
             return Ok(await _mediator.Send(command));
         }
-
-        [HttpGet("GetProfile/{id}")]
+        [Authorize]
+        [HttpGet("Profile/{id}")]
         public async Task<ActionResult<ProfileDto>>GetProfileAsync(string id)
         {
             return Ok(await _mediator.Send(new GetProfileQuery(id)));
         }
-
-        [HttpPut("UpdateProfile")]
+        [Authorize]
+        [HttpPut("Profile")]
         public async Task<ActionResult<string>>UpdateProfileAsync([FromForm]EditProfileCommand command)
         {
             return Ok(await _mediator.Send(command));
         }
-
+        [Authorize]
         [HttpPost("ChangePassword")]
         public async Task<ActionResult<string>>ChangePasswordAsync(ChangePasswordCommand command)
         {
             return Ok(await _mediator.Send(command));
         }
+
+
 
 
     }

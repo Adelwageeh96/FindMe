@@ -50,7 +50,7 @@ namespace FindMe.Application.Features.Posts.Commands.Update
             await _unitOfWork.Repository<Post>().UpdateAsync(post);
             await _unitOfWork.SaveAsync();
 
-            return await Response.SuccessAsync(_stringLocalizer["Success"].Value);
+            return await Response.SuccessAsync(new { PostId = post.Id }, _stringLocalizer["PostUpdatedSuccessfuly"].Value);
         }
     }
 }

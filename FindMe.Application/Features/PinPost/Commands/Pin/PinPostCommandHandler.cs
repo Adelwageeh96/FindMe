@@ -62,7 +62,7 @@ namespace FindMe.Application.Features.PinPost.Commands.Pin
             await _unitOfWork.Repository<PinnedPost>().AddAsync(pinPost);
             await _unitOfWork.SaveAsync();
 
-            return await Response.SuccessAsync(_stringLocalizer["Success"].Value);
+            return await Response.SuccessAsync(_stringLocalizer["PostPinnedSuccessfuly"].Value);
         }
     }
 }

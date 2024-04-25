@@ -6,9 +6,9 @@
   "InvalidLogin": ".خطا فى عملية تسجيل الدخول",
   "InvalidRequest": ".طلب غير صحيح",
   "Unauthorize": ".لا تملك صلاحية",
-  "PhoneNumberExist": "رقم الهاتف موجود مسبقا",
+  "PhoneNumberExist": "رقم الهاتف مستخدم مسبقا",
   "RoleNotExist": "لا يوجد دور بهذا الاسم",
-  "EmailExist": "الايميل مستخدم من قبل",
+  "EmailExist": "البريد الإلكترونى مستخدم بالفعل",
   "GanderException": ".النوع يجب ان يكون ذكر او انثى فقط",
   "EmailIsNotValidExpression": "الرجاء ادخال بريد إلكترونى صحيح",
   "InvaildPhoneNumber": "الرجاء إدخال رقم هاتف صحيح",
@@ -19,9 +19,30 @@
   "InvaildNationalNumber": "الرقم القومى يجب ان يتكون من 14 رقم فقط ",
   "InvaildRealationship": "علاقه غير صحيحه",
   "WrongPassword": "خطا فى كلمة المرور",
-  "WrongChangingPassword": "خطا فى تغير كلمة المرور ",
+  "WrongChangingPassword": "خطا اثناء تغير كلمة المرور ",
   "PasswordChagnedSuccessfuly": "تم تغير كلمة المرور بنجاح",
-  "NewAndOldPasswordcanNotBeSame": "برجاء ادخال كلمة مرور غير المستخدمه"
+  "NewAndOldPasswordcanNotBeSame": "برجاء ادخال كلمة مرور جديده",
+  "ProfileUpdatedSuccessfuly": "تم تحديث الملف الشخصى بنجاح",
+  "RequestApproval": "تم الموافقه على الطلب بنجاح",
+  "RequestDisapproval": "تم رفض الطلب بنجاح",
+  "PostCreatedSuccessfuly": "تم إنشاء المنشور بنجاح",
+  "PostUpdatedSuccessfuly": "تم تعديل المنشور بنجاح",
+  "PostDeletedSuccessfuly": "تم حذف المنشور بنجاح",
+  "PostPinnedSuccessfuly": "تم تثبيت المنشور بنجاح",
+  "PostUnPinnedSuccessfuly": "تم إزالة المنشور المثبت بنجاح",
+  "CommentAddedSuccessfuly": "تم إضافة التعليق بنجاح",
+  "CommentUpdatedSuccessfuly": "تم تعديل التعليق بنجاح",
+  "CommentDeletedSuccessfuly": "تم حذف التعليق بنجاح",
+  "HumanDetectionError": "الصورة يجب أن تحتوي على شخص واحد وتكون قريبة من الوجه",
+  "UserDetailsAdded": "تم إضافة بيانات المستخدم بنجاح",
+  "UserDetailsUpdated": "تم تحديث بيانات المستخدم بنجاح",
+  "UserRelativesAdded": "تم إضافة المقربون بنجاح",
+  "UserRelativesUpdated": "تم تحديث المقربون بنجاح",
+  "PhoneNumberEqualityError": "الرجاء إدخال ارقام هاتف مختلفه"
+
+
+
+
 
 
 

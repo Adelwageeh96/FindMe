@@ -24,37 +24,42 @@ namespace FindMe.Presentation.Controller
             _mediator = mediator;
         }
 
-        [HttpPost("AddDetails")]
-        public async Task<ActionResult<string>> AddDetailsAsync(AddDetailsCommand command)
+        [HttpPost("Details")]
+        public async Task<ActionResult<string>> AddDetailsAsync([FromForm]AddDetailsCommand command)
         {
             return Ok(await _mediator.Send(command));
         }
 
-        [HttpPut("UpdateDetails")]
-        public async Task<ActionResult<string>> UpdateDetailsAsync(UpdateDetailsCommand command)
+        [HttpPut("Details/{userId}")]
+        public async Task<ActionResult<string>> UpdateDetailsAsync(string userId,[FromForm]UpdateDetailsCommand command)
         {
+            if(userId != command.UserId)
+            {
+                return BadRequest();
+            }
             return Ok(await _mediator.Send(command));
         }
 
-        [HttpGet("GetDetails/{id}")]
+        [HttpGet("Details/{id}")]
         public async Task<ActionResult<GetUserDetailsDto>> GetDetailsAsync(string id)
         {
             return Ok(await _mediator.Send(new GetDetailsByUserIdQuery(id)));
         }
 
-        [HttpPost("AddRelatives")]
+        [HttpPost("Relatives")]
         public async Task<ActionResult<string>>AddRelativesAsync(AddRelativesCommand command)
         {
             return Ok(await _mediator.Send(command));
         }
 
-        [HttpPut("UpdateRelatives")]
+        [HttpPut("Relatives")]
         public async Task<ActionResult<string>> UpdateRelativesAsync(UpdateRelativesCommand command)
         {
+            
             return Ok(await _mediator.Send(command));
         }
 
-        [HttpGet("GetRelatives/{userId}")]
+        [HttpGet("Relatives/{userId}")]
         public async Task<ActionResult<List<UserRelativeDto>>>GetRelatives(string userId)
         {
             return Ok(await _mediator.Send(new GetRelativesByUserIdQuery(userId)));

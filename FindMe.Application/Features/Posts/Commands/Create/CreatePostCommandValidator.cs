@@ -22,7 +22,7 @@ namespace FindMe.Application.Features.Posts.Commands.Create
 
             RuleFor(x => x.PhoneNumber)
                .Cascade(CascadeMode.Stop)
-               .Length(11)
+               .Length(11).WithMessage(_localization["InvaildPhoneNumber"].Value)
                .Matches("^[0-9]*$").WithMessage(_localization["InvaildPhoneNumber"].Value)
                .When(x => x.PhoneNumber == null);
 

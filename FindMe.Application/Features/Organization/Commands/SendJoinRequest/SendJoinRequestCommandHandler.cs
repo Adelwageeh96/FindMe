@@ -42,13 +42,15 @@ namespace FindMe.Application.Features.Organization.Commands.SendJoinRequest
                 return await Response.FailureAsync(validationResult.Errors.First().ErrorMessage);
             }
 
-            if (await _userManager.FindByEmailAsync(command.Email) is not null)
+            if (await _userManager.FindByEmailAsync(command.Email) is not null
+                || await _unitOfWork.Repository<OrganizaitonJoinRequest>().AnyAsync(ojr=>ojr.Email==command.Email))
             {
                 return await Response.FailureAsync(_stringLocalizer["EmailExist"].Value);
             }
 
             if (await _userManager.Users.AnyAsync(u => u.PhoneNumber == command.PhoneNumber)
-               || await _unitOfWork.Repository<UserDetails>().AnyAsync(ud => ud.PhoneNumber == command.PhoneNumber))
+               || await _unitOfWork.Repository<UserDetails>().AnyAsync(ud => ud.PhoneNumber == command.PhoneNumber)
+               || await _unitOfWork.Repository<OrganizaitonJoinRequest>().AnyAsync(ojr => ojr.PhoneNumber == command.PhoneNumber))
             {
                 return await Response.FailureAsync(_stringLocalizer["PhoneNumberExist"].Value);
             }

@@ -53,6 +53,7 @@ namespace FindMe.Application.Features.RecognitionRequest.Commands.SendRecognitio
             {
                 return await Response.FailureAsync(_stringLocalizer["InvaildOperationForThisActor"].Value);
             }
+
             using var dataStream = new MemoryStream();
             await command.Photo.CopyToAsync(dataStream);
 

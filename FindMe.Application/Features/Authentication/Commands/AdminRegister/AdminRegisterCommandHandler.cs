@@ -87,7 +87,7 @@ namespace FindMe.Application.Features.Authentication.Commands.AdminRegister
             }
             emailTemplate = emailTemplate.Replace("{Email}", command.Email);
             emailTemplate = emailTemplate.Replace("{Password}", tempPassword);
-            string subject = "Welcome to FindMe App - Organization Registration Approval";
+            string subject = "Welcome to FindMe App - Admin Role Assignment";
             await _mailingService.SendEmailAsync(command.Email, subject, emailTemplate);
 
             return await Response.SuccessAsync(_stringLocalizer["AccountCreatedSuccessfully"].Value);

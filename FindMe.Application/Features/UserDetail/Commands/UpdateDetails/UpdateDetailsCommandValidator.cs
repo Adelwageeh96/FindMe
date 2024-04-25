@@ -16,7 +16,7 @@ namespace FindMe.Application.Features.UserDetail.Commands.UpdateDetails
 
             RuleFor(x => x.UserDetails.Job).NotEmpty();
 
-            RuleFor(x=>x.Id).NotEmpty();
+            RuleFor(x=>x.UserId).NotEmpty();
 
             RuleFor(x => x.UserDetails.NationalId)
               .NotEmpty()

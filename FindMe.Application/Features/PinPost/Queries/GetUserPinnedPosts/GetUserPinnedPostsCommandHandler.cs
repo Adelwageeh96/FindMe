@@ -35,10 +35,6 @@ namespace FindMe.Application.Features.PinPost.Queries.GetUserPinnedPosts
             }
             var entities = _unitOfWork.Repository<PinnedPost>().Entities().Where(p => p.ApplicationUserId == query.UserId);
 
-            if (!query.KeyWord.IsNullOrEmpty())
-            {
-                entities = entities.Where(x => x.Post.Descripation.ToLower().Contains(query.KeyWord.ToLower()));
-            }
             entities = entities.OrderByDescending(x => x.PinnedAt);
             return await entities.ProjectToType<PostDto>()
                                  .ToPaginatedListAsync(query.PageNumber, query.PageSize, cancellationToken);

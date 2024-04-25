@@ -35,7 +35,7 @@ namespace FindMe.Application.Features.Authentication.Commands.ChangePasswrod
 
             if (await _userManager.FindByIdAsync(command.UserId) is not ApplicationUser user)
             {
-                return await Response.FailureAsync("There is no user with this user Id", HttpStatusCode.NotFound);
+                return await Response.FailureAsync("There is no user with this Id", HttpStatusCode.NotFound);
             }
 
             bool isCorrect = await _userManager.CheckPasswordAsync(user, command.OldPassword);
@@ -46,10 +46,10 @@ namespace FindMe.Application.Features.Authentication.Commands.ChangePasswrod
             var result = await _userManager.ChangePasswordAsync(user,command.OldPassword,command.NewPassword);
             if (!result.Succeeded)
             {
-                return await Response.FailureAsync(_stringLocalizer["WrongChangingPassword"].Value);
+                return await Response.FailureAsync(_stringLocalizer["WrongChangingPassword"].Value,HttpStatusCode.InternalServerError);
             }
 
-            return await Response.SuccessAsync("PasswordChagnedSuccessfuly");
+            return await Response.SuccessAsync(_stringLocalizer["PasswordChagnedSuccessfuly"].Value);
 
 
 

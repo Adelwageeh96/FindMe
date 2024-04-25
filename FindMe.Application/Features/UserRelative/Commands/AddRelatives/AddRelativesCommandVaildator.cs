@@ -17,18 +17,21 @@ namespace FindMe.Application.Features.UserRelative.Commands.AddRelatives
               {
                   rel.RuleFor(r => r.Name).NotEmpty();
 
+
                   rel.RuleFor(r => r.PhoneNumber1)
                       .NotEmpty()
-                      .Length(11)
+                      .Length(11).WithMessage(_localization["InvaildPhoneNumber"].Value)
                       .Matches("^[0-9]*$").WithMessage(_localization["InvaildPhoneNumber"].Value);
 
                   rel.RuleFor(r => r.PhoneNumber2)
                       .Cascade(CascadeMode.Stop)
-                      .NotEmpty()
-                      .When(r => !string.IsNullOrEmpty(r.PhoneNumber2))
-                      .Length(11)
-                      .Matches("^[0-9]*$").WithMessage(_localization["InvaildPhoneNumber"].Value);
+                      .Length(11).WithMessage(_localization["InvaildPhoneNumber"].Value)
+                      .Matches("^[0-9]*$").WithMessage(_localization["InvaildPhoneNumber"].Value)
+                      .When(x => x.PhoneNumber2 == null);
 
+                  rel.RuleFor(r => r.PhoneNumber2)
+                      .NotEqual(r => r.PhoneNumber1)
+                      .WithMessage(_localization["PhoneNumberEqualityError"].Value);
 
                   rel.RuleFor(x => x.Gendre)
                    .NotEmpty()

@@ -40,7 +40,7 @@ namespace FindMe.Application.Features.Organization.Commands.ApproveJoinRequest
         {
            if(await _unitOfWork.Repository<OrganizaitonJoinRequest>().GetByIdAsync(command.Id) is not OrganizaitonJoinRequest organizaitonJoinRequest)
            {
-                return await Response.FailureAsync("There is no request by this Id");
+                return await Response.FailureAsync("There is no request with this Id");
            }
 
             if (organizaitonJoinRequest.IsApproved)
@@ -49,9 +49,13 @@ namespace FindMe.Application.Features.Organization.Commands.ApproveJoinRequest
             }
 
             organizaitonJoinRequest.IsApproved = true;
+
             var user = _mapper.Map<ApplicationUser>(organizaitonJoinRequest);
+
             var userName = await GenerateUniqueUsernameAsync(organizaitonJoinRequest.Email);
+
             var tempPassword =  GenerateTempPassword(10);
+
             user.UserName = userName;
 
             var result = await _userManager.CreateAsync(user, tempPassword);
@@ -77,10 +81,14 @@ namespace FindMe.Application.Features.Organization.Commands.ApproveJoinRequest
                 emailTemplate = await reader.ReadToEndAsync();
             }
             emailTemplate = emailTemplate.Replace("{Email}", organizaitonJoinRequest.Email);
+
             emailTemplate = emailTemplate.Replace("{Password}", tempPassword);
-            string subject = "Welcome to FindMe App - Admin Role Assignment";
+
+            string subject = "Welcome to FindMe App - Organization Registration Approval";
+
             await _mailingService.SendEmailAsync(organizaitonJoinRequest.Email, subject, emailTemplate);
-            return await Response.SuccessAsync(_stringLocalizer["Success"].Value);
+
+            return await Response.SuccessAsync(_stringLocalizer["RequestApproval"].Value);
 
         }
 

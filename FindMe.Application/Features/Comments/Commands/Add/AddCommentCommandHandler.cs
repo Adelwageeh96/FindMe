@@ -64,7 +64,7 @@ namespace FindMe.Application.Features.Comments.Commands.Add
             await _unitOfWork.Repository<Comment>().AddAsync(comment);
             await _unitOfWork.SaveAsync();
 
-            return await Response.SuccessAsync(_stringLocalizer["Success"].Value);
+            return await Response.SuccessAsync(comment.Id,_stringLocalizer["CommentAddedSuccessfuly"].Value);
 
         }
     }

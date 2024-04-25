@@ -31,7 +31,7 @@ namespace FindMe.Application.Features.UserDetail.Queries.GetDetailsByUserId
             }
 
             var getUserDetailsDto = _mapper.Map<GetUserDetailsDto>(userDetails);
-            return await Response.SuccessAsync(getUserDetailsDto,_stringLocalizer["Success"].Value);
+            return await Response.SuccessAsync(getUserDetailsDto);
             
         }
     }

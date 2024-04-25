@@ -42,7 +42,7 @@ namespace FindMe.Application.Features.Comments.Commands.Update
             await _unitOfWork.Repository<Comment>().UpdateAsync(comment);
             await _unitOfWork.SaveAsync();
 
-            return await Response.SuccessAsync(_stringLocalizer["Success"].Value);
+            return await Response.SuccessAsync(comment.Id,_stringLocalizer["CommentUpdatedSuccessfuly"].Value);
 
 
         }

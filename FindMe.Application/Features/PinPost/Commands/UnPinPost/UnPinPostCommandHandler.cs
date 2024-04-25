@@ -64,7 +64,7 @@ namespace FindMe.Application.Features.PinPost.Commands.UnPinPost
             await _unitOfWork.Repository<PinnedPost>().DeleteAsync(pinnedPost);
             await _unitOfWork.SaveAsync();
 
-            return await Response.SuccessAsync(_stringLocalizer["Success"].Value);
+            return await Response.SuccessAsync(_stringLocalizer["PostUnPinnedSuccessfuly"].Value);
 
         }
     }

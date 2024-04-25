@@ -36,14 +36,11 @@ namespace FindMe.Application.Features.Organization.Queries.GetAllUnapprovedJoinR
             }
 
             var entites = _unitOfWork.Repository<OrganizaitonJoinRequest>().Entities();
+
             entites = entites.Where(e => !e.IsApproved );
 
-            if (!query.KeyWord.IsNullOrEmpty())
-            {
-                entites = entites.Where(x => x.Name.ToLower().Contains(query.KeyWord.ToLower()));
-            }
 
-            entites = entites.OrderBy(x => x.RecivedAt);
+            entites = entites.OrderByDescending(x => x.RecivedAt);
 
             return await entites.ProjectToType<JoinRequestDto>()
                                 .ToPaginatedListAsync(query.PageNumber, query.PageSize, cancellationToken);

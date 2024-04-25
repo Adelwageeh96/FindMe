@@ -6,7 +6,7 @@ namespace FindMe.Application.Features.UserDetail.Commands.UpdateDetails
 {
     public record UpdateDetailsCommand: IRequest<Response>
     {
-        public int Id { get; set; }
+        public string UserId { get; set; }
         public UserDetailsDto UserDetails { get; set; }
         
     }

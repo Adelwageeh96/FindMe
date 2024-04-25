@@ -30,7 +30,7 @@ namespace FindMe.Application.Features.Posts.Commands.Delete
             await _unitOfWork.Repository<Post>().DeleteAsync(post);
             await _unitOfWork.SaveAsync();
 
-            return await Response.SuccessAsync(_stringLocalizer["Success"].Value);
+            return await Response.SuccessAsync(_stringLocalizer["PostDeletedSuccessfuly"].Value);
         }
     }
 }

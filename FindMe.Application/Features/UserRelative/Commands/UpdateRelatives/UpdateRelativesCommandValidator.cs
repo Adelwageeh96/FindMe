@@ -5,7 +5,7 @@ using Microsoft.Extensions.Localization;
 
 namespace FindMe.Application.Features.UserRelative.Commands.UpdateRelatives
 {
-    internal class UpdateRelativesCommandValidator: AbstractValidator<UpdateRelativesCommand>
+    public class UpdateRelativesCommandValidator: AbstractValidator<UpdateRelativesCommand>
     {
         private readonly IStringLocalizer<UpdateRelativesCommand> _localization;
         public UpdateRelativesCommandValidator(IStringLocalizer<UpdateRelativesCommand> localization)

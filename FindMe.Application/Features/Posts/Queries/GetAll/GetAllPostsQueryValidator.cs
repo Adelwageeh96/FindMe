@@ -3,7 +3,7 @@
 
 namespace FindMe.Application.Features.Posts.Queries.GetAll
 {
-    internal class GetAllPostsQueryValidator : AbstractValidator<GetAllPostsQuery>
+    public class GetAllPostsQueryValidator : AbstractValidator<GetAllPostsQuery>
     {
         public GetAllPostsQueryValidator()
         {

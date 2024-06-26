@@ -6,7 +6,7 @@ using Microsoft.Extensions.Localization;
 
 namespace FindMe.Application.Features.UserDetail.Commands.UpdateDetails
 {
-    internal class UpdateDetailsCommandValidator: AbstractValidator<UpdateDetailsCommand>
+    public class UpdateDetailsCommandValidator: AbstractValidator<UpdateDetailsCommand>
     {
         private readonly IStringLocalizer<UpdateDetailsCommand> _localization;
         public UpdateDetailsCommandValidator(IStringLocalizer<UpdateDetailsCommand> localization)

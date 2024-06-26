@@ -48,22 +48,6 @@ namespace FindMe.Application.Extention
         }
         private static IServiceCollection AddValidators(this IServiceCollection services)
         {
-            services.AddTransient<IValidator<AddDetailsCommand>, AddDetailsCommandValidator>();
-            services.AddTransient<IValidator<UpdateDetailsCommand>, UpdateDetailsCommandValidator>();
-            services.AddTransient<IValidator<UpdateRelativesCommand>, UpdateRelativesCommandValidator>();
-            services.AddTransient<IValidator<EditProfileCommand>, EditProfileCommandValidator>();
-            services.AddTransient<IValidator<ChangePasswordCommand>, ChangePasswordCommandValidator>();
-            services.AddTransient<IValidator<CreatePostCommand>, CreatePostCommandValidator>();
-            services.AddTransient<IValidator<SendRecognitionRequestCommand>, SendRecognitionRequestCommandValidator>();
-            services.AddTransient<IValidator<UpdatePostCommand>, UpdatePostCommandValidator>();
-            services.AddTransient<IValidator<GetAllPostsQuery>, GetAllPostsQueryValidator>();
-            services.AddTransient<IValidator<AddCommentCommand>, AddCommentCommandValidator>();
-            services.AddTransient<IValidator<UpdateCommentCommand>, UpdateCommentCommandValidator>();
-            services.AddTransient<IValidator<PinPostCommand>, PinPostCommandValidator>();
-            services.AddTransient<IValidator<GetUserPinnedPostsCommand>, GetUserPinnedPostsCommandValidator>();
-            
-            
-            
             return services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }

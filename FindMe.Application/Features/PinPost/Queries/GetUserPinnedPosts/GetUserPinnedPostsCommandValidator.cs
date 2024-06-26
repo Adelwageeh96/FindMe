@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace FindMe.Application.Features.PinPost.Queries.GetUserPinnedPosts
 {
-    internal class GetUserPinnedPostsCommandValidator: AbstractValidator<GetUserPinnedPostsCommand>
+    public class GetUserPinnedPostsCommandValidator: AbstractValidator<GetUserPinnedPostsCommand>
     {
         public GetUserPinnedPostsCommandValidator()
         {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FindMe.Application.Features.Posts.Commands.Update
 {
-    internal class UpdatePostCommandValidator:AbstractValidator<UpdatePostCommand>
+    public class UpdatePostCommandValidator:AbstractValidator<UpdatePostCommand>
     {
         private readonly IStringLocalizer<UpdatePostCommand> _stringLocalizer;
 

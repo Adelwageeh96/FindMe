@@ -4,7 +4,7 @@ using Microsoft.Extensions.Localization;
 
 namespace FindMe.Application.Features.Profile.Commands
 {
-    internal class EditProfileCommandValidator:AbstractValidator<EditProfileCommand>
+    public class EditProfileCommandValidator:AbstractValidator<EditProfileCommand>
     {
         private readonly IStringLocalizer<EditProfileCommand> _stringLocalizer;
         public EditProfileCommandValidator(IStringLocalizer<EditProfileCommand> stringLocalizer)

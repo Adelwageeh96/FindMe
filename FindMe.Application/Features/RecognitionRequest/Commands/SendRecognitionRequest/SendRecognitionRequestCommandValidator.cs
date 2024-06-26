@@ -2,7 +2,7 @@
 
 namespace FindMe.Application.Features.RecognitionRequest.Commands.SendRecognitionRequest
 {
-    internal class SendRecognitionRequestCommandValidator : AbstractValidator<SendRecognitionRequestCommand>
+    public class SendRecognitionRequestCommandValidator : AbstractValidator<SendRecognitionRequestCommand>
     {
         public SendRecognitionRequestCommandValidator()
         {

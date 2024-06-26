@@ -3,7 +3,7 @@
 
 namespace FindMe.Application.Features.Comments.Commands.Update
 {
-    internal class UpdateCommentCommandValidator: AbstractValidator<UpdateCommentCommand>
+    public class UpdateCommentCommandValidator: AbstractValidator<UpdateCommentCommand>
     {
         public UpdateCommentCommandValidator()
         {

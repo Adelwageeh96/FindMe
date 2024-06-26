@@ -4,7 +4,7 @@ using Microsoft.Extensions.Localization;
 
 namespace FindMe.Application.Features.Posts.Commands.Create
 {
-    internal class CreatePostCommandValidator: AbstractValidator<CreatePostCommand>
+    public class CreatePostCommandValidator: AbstractValidator<CreatePostCommand>
     {
         private readonly IStringLocalizer<CreatePostCommand> _localization;
         public CreatePostCommandValidator(IStringLocalizer<CreatePostCommand> localization)

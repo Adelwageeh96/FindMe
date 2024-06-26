@@ -6,13 +6,16 @@ using FindMe.Application.Features.Posts.Commands.Delete;
 using FindMe.Application.Features.Posts.Commands.Update;
 using FindMe.Application.Features.Posts.Queries.GetAll;
 using FindMe.Application.Features.Posts.Queries.GetById;
+using FindMe.Domain.Constants;
 using FindMe.Shared;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
 namespace FindMe.Presentation.Controller
 {
+    [Authorize($"UserOrOrganizationPolicy")]
     [Route("api/[controller]")]
     [ApiController]
     public class PostController: ControllerBase

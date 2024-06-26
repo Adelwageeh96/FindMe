@@ -67,6 +67,16 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Secret"]!)),
         ClockSkew = TimeSpan.Zero
     };
+    o.Events = new JwtBearerEvents
+    {
+        OnChallenge = context =>
+        {
+            context.HandleResponse();
+            context.Response.StatusCode = 401;
+            context.Response.ContentType = "application/json";
+            return context.Response.WriteAsync("{\"error\": \"Unauthorized\"}");
+        }
+    };
 });
 
 builder.Services.Configure<IdentityOptions>(options =>
@@ -76,6 +86,17 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireUppercase = false;
     options.Password.RequiredLength = 1; 
+});
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
+    options.AddPolicy("User", policy => policy.RequireRole("User"));
+    options.AddPolicy("Organization", policy => policy.RequireRole("Organization"));
+    options.AddPolicy("UserOrOrganizationPolicy", policy =>
+            policy.RequireAssertion(context =>
+                context.User.IsInRole(Roles.USER) ||
+                context.User.IsInRole(Roles.ORGANIZATION)));
 });
 
 

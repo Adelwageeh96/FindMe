@@ -1,4 +1,5 @@
-﻿using FindMe.Application.Interfaces.Repositories;
+﻿using FindMe.Application.Common.Helpers;
+using FindMe.Application.Interfaces.Repositories;
 using FindMe.Domain.Identity;
 using FindMe.Domain.Models;
 using FindMe.Shared;
@@ -18,19 +19,21 @@ namespace FindMe.Application.Features.UserDetail.Commands.UpdateDetails
         private readonly IStringLocalizer<UpdateDetailsCommand> _stringLocalizer;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IMapper _mapper;
-
+        private readonly IFastApiService _fastApiService;
         public UpdateDetailsCommandHandler(
             IValidator<UpdateDetailsCommand> validator,
             IUnitOfWork unitOfWork,
             IStringLocalizer<UpdateDetailsCommand> stringLocalizer,
             UserManager<ApplicationUser> userManager,
-            IMapper mapper)
+            IMapper mapper,
+            IFastApiService fastApiService)
         {
             _validator = validator;
             _unitOfWork = unitOfWork;
             _stringLocalizer = stringLocalizer;
             _userManager = userManager;
             _mapper = mapper;
+            _fastApiService = fastApiService;
         }
 
         public async Task<Response> Handle(UpdateDetailsCommand command, CancellationToken cancellationToken)
@@ -59,7 +62,17 @@ namespace FindMe.Application.Features.UserDetail.Commands.UpdateDetails
             using var dataStream = new MemoryStream();
             await command.UserDetails.Photo.CopyToAsync(dataStream);
 
+            var photoBytes = dataStream.ToArray();
+
+            var validateResult = await _fastApiService.ValidatePhotoAsync(photoBytes);
+            if (validateResult != "Valid")
+            {
+                return await Response.FailureAsync("الرجاء إدخال صوره تحتوى على شخص واحد فقط وقريبه من الوجه");
+            }
+
             _mapper.Map((command.UserDetails,dataStream.ToArray()), userDetails);
+            var embedding = await _fastApiService.GenerateEmbeddingAsync(photoBytes);
+            userDetails.EmbeddingVector = EmbeddingVectorConverter.ToByteArray(embedding);
 
             await _unitOfWork.Repository<UserDetails>().UpdateAsync(userDetails);
             await _unitOfWork.SaveAsync();

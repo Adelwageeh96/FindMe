@@ -15,5 +15,6 @@ namespace FindMe.Domain.Models
         public string? Notes { get; set; } 
         public string ApplicationUserId { get; set; } 
         public virtual ApplicationUser ApplicationUser { get; set; } 
+        public byte[]? EmbeddingVector { get; set; }
     }
 }

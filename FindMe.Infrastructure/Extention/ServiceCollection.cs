@@ -56,7 +56,7 @@ namespace FindMe.Infrastructure.Extention
         {
             services.AddTransient<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddTransient<IMailingService, MailingService>();
-            services.AddTransient<IHumanDetectionService,HumanDetectionService>();
+            services.AddHttpClient<IFastApiService, FastApiService>();
             return services;
         }
 

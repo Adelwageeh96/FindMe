@@ -8,7 +8,6 @@ using FindMe.Application.Features.Organization.Commands.SendJoinRequest;
 using FindMe.Application.Features.Profile.Commands;
 using FindMe.Application.Features.Profile.Common;
 using FindMe.Application.Features.Profile.Queries;
-using FindMe.Domain.Constants;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

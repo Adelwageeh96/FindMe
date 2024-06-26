@@ -8,7 +8,7 @@ namespace FindMe.Application.Features.Authentication.Queries.Login
         {
               RuleFor(x=>x.UserIdentifier).NotEmpty();
               RuleFor(x=>x.Password).NotEmpty();
-              RuleFor(x=>x.FcmToken).NotEmpty();
+              RuleFor(x=>x.FCMToken).NotEmpty();
         }
     }
 }

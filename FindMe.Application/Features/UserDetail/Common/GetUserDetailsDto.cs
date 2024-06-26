@@ -11,6 +11,7 @@ namespace FindMe.Application.Features.UserDetail.Common
         public string MatiralStatus { get; set; }
         public DateTime BirthDate { get; set; }
         public string Job { get; set; }
+        public string Address { get; set; }
         public byte[] Photo { get; set; }
         public string? PhoneNumber { get; set; }
         public string? Notes { get; set; }

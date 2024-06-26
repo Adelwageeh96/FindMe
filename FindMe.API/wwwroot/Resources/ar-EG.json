@@ -38,7 +38,10 @@
   "UserDetailsUpdated": "تم تحديث بيانات المستخدم بنجاح",
   "UserRelativesAdded": "تم إضافة المقربون بنجاح",
   "UserRelativesUpdated": "تم تحديث المقربون بنجاح",
-  "PhoneNumberEqualityError": "الرجاء إدخال ارقام هاتف مختلفه"
+  "PhoneNumberEqualityError": "الرجاء إدخال ارقام هاتف مختلفه",
+  "IdentificationRequestSent": "تم إرسال طلب التحقق بنجاح",
+  "NationalNumberExist": "الرقم القومى موجود بالفل"
+
 
 
 

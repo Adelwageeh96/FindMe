@@ -1,14 +1,16 @@
 ﻿using FindMe.Application.Features.Comments.Commands.Add;
 using FindMe.Application.Features.Comments.Commands.Delete;
 using FindMe.Application.Features.Comments.Commands.Update;
+using FindMe.Domain.Constants;
 using FindMe.Shared;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace FindMe.Presentation.Controller
 {
-
+    [Authorize($"UserOrOrganizationPolicy")]
     [Route("api/[controller]")]
     [ApiController]
     public class CommentController: ControllerBase

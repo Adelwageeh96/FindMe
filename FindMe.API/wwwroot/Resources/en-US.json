@@ -38,7 +38,9 @@
   "UserDetailsUpdated": "User details updated successfully",
   "UserRelativesAdded": "User relatives added successfully",
   "UserRelativesUpdated": "User relatives updated successfully",
-  "PhoneNumberEqualityError": "PhoneNumber1 and PhoneNumber2 can't be the same"
+  "PhoneNumberEqualityError": "PhoneNumber1 and PhoneNumber2 can't be the same",
+  "IdentificationRequestSent": "Identification request sent successfully",
+  "NationalNumberExist":  "National Number exist"
 
 
 }

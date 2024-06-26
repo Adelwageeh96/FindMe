@@ -1,4 +1,5 @@
-﻿using FindMe.Application.Interfaces.Repositories;
+﻿using FindMe.Application.Common.Helpers;
+using FindMe.Application.Interfaces.Repositories;
 using FindMe.Application.Interfaces.Services;
 using FindMe.Domain.Constants;
 using FindMe.Domain.Identity;
@@ -12,7 +13,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 
 namespace FindMe.Application.Features.UserDetail.Commands.AddDetails
@@ -24,23 +24,23 @@ namespace FindMe.Application.Features.UserDetail.Commands.AddDetails
         private readonly IValidator<AddDetailsCommand> _validator;
         private readonly IMapper _mapper;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IHumanDetectionService _humanDetectionService;
+        private readonly IFastApiService _fastApiService;
+
         public AddDetailsCommandHandler(
             IUnitOfWork unitOfWork,
             IStringLocalizer<AddDetailsCommand> stringLocalizer,
             IValidator<AddDetailsCommand> validator,
             IMapper mapper,
             UserManager<ApplicationUser> userManager,
-            IHumanDetectionService humanDetectionService)
+            IFastApiService fastApiService)
         {
             _unitOfWork = unitOfWork;
             _stringLocalizer = stringLocalizer;
             _validator = validator;
             _mapper = mapper;
             _userManager = userManager;
-            _humanDetectionService = humanDetectionService;
+            _fastApiService = fastApiService;
         }
-
 
         public async Task<Response> Handle(AddDetailsCommand command, CancellationToken cancellationToken)
         {
@@ -50,17 +50,17 @@ namespace FindMe.Application.Features.UserDetail.Commands.AddDetails
                 return await Response.FailureAsync(validationResult.Errors.First().ErrorMessage);
             }
 
-            if(await _userManager.FindByIdAsync(command.UserId)is not ApplicationUser user)
+            if (await _userManager.FindByIdAsync(command.UserId) is not ApplicationUser user)
             {
                 return await Response.FailureAsync("There is no user with this user Id");
             }
 
-            if(!await _userManager.IsInRoleAsync(user, Roles.USER))
+            if (!await _userManager.IsInRoleAsync(user, Roles.USER))
             {
                 return await Response.FailureAsync("Only actors with user role can have details");
             }
 
-            if(await _unitOfWork.Repository<UserDetails>().AnyAsync(u => u.ApplicationUserId == command.UserId))
+            if (await _unitOfWork.Repository<UserDetails>().AnyAsync(u => u.ApplicationUserId == command.UserId))
             {
                 return await Response.FailureAsync("User already have details");
             }
@@ -76,35 +76,28 @@ namespace FindMe.Application.Features.UserDetail.Commands.AddDetails
                 return await Response.FailureAsync(_stringLocalizer["PhoneNumberExist"].Value);
             }
 
-            //var response = await _humanDetectionService.VerifyHumanAsync(command.UserDetails.Photo);
-            //if (!response.IsSuccess)
-            //{
-            //    if (response.Message.IsNullOrEmpty())
-            //    {
-            //        return await Response.FailureAsync(_stringLocalizer["HumanDetectionError"].Value);
-            //    }
-            //    else
-            //        return await Response.FailureAsync($"{response.Message}");
-            //}
-
-            //var tempFilePath = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid()}.jpg");
-            //await File.WriteAllBytesAsync(tempFilePath,  response.Data);
-
-            //// Log the path of the temporary file to view the photo
-            //Console.WriteLine($"Photo saved to: {tempFilePath}");
-
-            //// Open the photo using the default image viewer
-            //Process.Start(tempFilePath);
-
             using var dataStream = new MemoryStream();
             await command.UserDetails.Photo.CopyToAsync(dataStream);
+            var photoBytes = dataStream.ToArray();
 
-            var userDetails = _mapper.Map<UserDetails>((command,dataStream.ToArray()));
+            var validateResult = await _fastApiService.ValidatePhotoAsync(photoBytes);
+            if (validateResult != "Valid")
+            {
+                return await Response.FailureAsync("الرجاء إدخال صوره تحتوى على شخص واحد فقط وقريبه من الوجه");
+            }
+
+            var embedding = await _fastApiService.GenerateEmbeddingAsync(photoBytes);
+
+            var userDetails = _mapper.Map<UserDetails>(command);
+            userDetails.Photo = photoBytes;
+            userDetails.EmbeddingVector = EmbeddingVectorConverter.ToByteArray(embedding); 
+            user.Address = command.UserDetails.Address;
+
             await _unitOfWork.Repository<UserDetails>().AddAsync(userDetails);
-
             await _unitOfWork.SaveAsync();
 
-            return await Response.SuccessAsync(new { UserDetailsId= userDetails.Id },_stringLocalizer["UserDetailsAdded"].Value);
+            return await Response.SuccessAsync(new { UserDetailsId = userDetails.Id }, _stringLocalizer["UserDetailsAdded"].Value);
         }
     }
+
 }

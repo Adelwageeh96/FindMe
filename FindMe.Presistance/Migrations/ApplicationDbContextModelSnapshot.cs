@@ -267,14 +267,23 @@ namespace FindMe.Presistance.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<float>("FirstSimilarityPercent")
+                        .HasColumnType("real");
+
                     b.Property<int>("RecognitionRequestId")
                         .HasColumnType("int");
 
                     b.Property<string>("SecondSimilarityId")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<float>("SecondSimilarityPercent")
+                        .HasColumnType("real");
+
                     b.Property<string>("ThirdSimilarityId")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("ThirdSimilarityPercent")
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 
@@ -332,6 +341,9 @@ namespace FindMe.Presistance.Migrations
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<byte[]>("EmbeddingVector")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Job")
                         .IsRequired()

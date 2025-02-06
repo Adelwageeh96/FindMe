@@ -1,4 +1,4 @@
-# Mobile App for Recognition and Management System
+# Mobile App API for Recognition and Management System
 
 This mobile app is developed using ASP.NET Web API and offers a comprehensive solution for recognition and management tasks. It facilitates user registration, login, profile creation, and recognition requests, catering to both individual users and organizations. Admins have full control over the system, managing user and organization requests and overseeing the entire process.
 
